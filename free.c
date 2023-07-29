@@ -1,7 +1,9 @@
 #include "main.h"
+
 /**
- * _freeargs - is a function that frees the arguments
- * @args: this is the tokasdnized arguments
+ * _freeargs - frees the args
+ * @args: tokenazied arg
+ *
  * Return:void
  */
 void  _freeargs(char **args)
@@ -12,15 +14,32 @@ void  _freeargs(char **args)
 	while (args[len] != NULL)
 		len++;
 
-	for (index = 0; index < len; index++)
+	for (index = 0; index <= len; index++)
 	{
 		free(args[index]);
 	}
 }
 
 /**
- * _freepath - is a function asdthat frees the path
- * @path: is a function that frees the path
+ * _freeenv - frees environ
+ *
+ * Return:void
+ */
+void _freeenv(void)
+{
+	int index;
+
+	for (index = 0; environ[index] != NULL; index++)
+	{
+		free(environ[index]);
+	}
+	free(environ);
+}
+
+/**
+ * _freepath - frees path
+ * @path: fress path
+ *
  * Return:void
  */
 void _freepath(linked_path *path)
@@ -34,18 +53,4 @@ void _freepath(linked_path *path)
 		free(path);
 		path = temp;
 	}
-}
-/**
- * _freeenv - is a function that asdfrees the eniron
- * Return:void
- */
-void _freeenv(void)
-{
-	int index;
-
-	for (index = 0; environ[index] != NULL; index++)
-	{
-		free(environ[index]);
-	}
-	free(environ);
 }
