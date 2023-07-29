@@ -17,24 +17,24 @@ int built_ins(char **args, int line_num)
 		my_exit(args);
 		exit(2);
 	}
-	if (_strcmp(args[0], "cd") == 0)
-	{
-		my_cd(args, line_num);
-		return (1);
-	}
-	if (_strcmp(args[0], "unsetenv") == 0)
-	{
-		my_unsetenv(args);
-		return (1);
-	}
 	if (_strcmp(args[0], "env") == 0)
 	{
 		my_env();
 		return (1);
 	}
+	if (_strcmp(args[0], "cd") == 0)
+	{
+		my_cd(args, line_num);
+		return (1);
+	}
 	if (_strcmp(args[0], "setenv") == 0)
 	{
 		my_setenv(args[1], args[2], 1);
+		return (1);
+	}
+	if (_strcmp(args[0], "unsetenv") == 0)
+	{
+		my_unsetenv(args);
 		return (1);
 	}
 	return (0);
