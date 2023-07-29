@@ -1,9 +1,10 @@
 #include "main.h"
+
 /**
  * built_ins - Entry point
  * @args: cmds and args
  * @line_num: exec count
- * 
+ *
  * Return: Always 0 (Success)
  */
 int built_ins(char **args, int line_num)
@@ -42,7 +43,7 @@ int built_ins(char **args, int line_num)
  * built_ins2 - Entry point
  * @args: cmds and args
  * @line_num: exec count
- * 
+ *
  * Return: Always 0 (Success)
  */
 int built_ins2(char **args, int line_num __attribute__ ((unused)))
