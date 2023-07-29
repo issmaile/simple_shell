@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * get_dir - is a function thaasdasdt prints the working dir
+ * get_dir - is a function that prints the working dir
  * Return: the working directory
  */
 char *get_dir()
@@ -26,7 +26,7 @@ char *get_dir()
 }
 /**
  * _getenv - is a function that checks for
- * a variable in the enviroasdment
+ * a variable in the environment
  * @name: is a a pointer to an array of characters
  * Return: a pointer if success or NULL if failed
  */
@@ -58,7 +58,7 @@ char *_getenv(const char *name)
  * get_line - Entry point
  * @buffer: to hold command and arguments
  * @bufsize: size of buffer
- * @fd: file descriptorasdad of input stream
+ * @fd: file descriptor of input stream
  * Return: string buffer
  */
 ssize_t get_line(char **buffer, size_t *bufsize, int fd)

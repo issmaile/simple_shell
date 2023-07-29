@@ -3,9 +3,7 @@
 
 /**
  * sigintHandler - Entry point(CTRL + C)
- * @sig_num: signal numberadasdasd
- *
- *
+ * @sig_num: signal number
  * Return: the length of a string.
  */
 void sigintHandler(int sig_num)

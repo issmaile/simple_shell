@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * str_tok - Entasdasdry point
+ * str_tok - Entry point
  * @command: command line
  * @delim: delimieter
  * Return: current token
@@ -43,7 +43,7 @@ char *str_tok(char *command, const char *delim)
 /**
  * tokenize - Entry point
  * @command: string passed
- * @args: arguments asdasdpassed
+ * @args: arguments passed
  * Return: Always 0 (Success)
  */
 int tokenize(char *command, char **args)

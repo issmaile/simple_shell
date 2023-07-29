@@ -4,7 +4,7 @@
 /**
  * _strlen - Entry point
  * @s: string checked
- * Return: the lengtasdasdh of a string.
+ * Return: the length of a string.
  */
 int _strlen(const char *s)
 {
@@ -21,7 +21,7 @@ int _strlen(const char *s)
 
 /**
  * _strcmp - Entry point
- * @s1: pointer asdadvariable 1
+ * @s1: pointer variable 1
  * @s2: pointer variable 2
  * Return: result of two strings compared
  */
@@ -47,7 +47,7 @@ int _strcmp(const char *s1, const char *s2)
 
 /**
  * _strchr - Entry point
- * @s: pointer variaadadble
+ * @s: pointer variable
  * @c: character to be checked
  * Return: Always 0 (Success)
  */
@@ -70,7 +70,7 @@ char *_strchr(const char *s, const char c)
 /**
  * _strdup - Entry point
  * @str: string to duplicate
- * Return: Always 0 (Sasdaduccess)
+ * Return: Always 0 (Success)
  */
 char *_strdup(const char *str)
 {

@@ -4,7 +4,7 @@
 /**
  * _strcat - Entry point
  * @dest: pointer variable 1
- * @src: pointer varasdasdiable 2
+ * @src: pointer variable 2
  * Return: two strings concatenated)
  */
 char *_strcat(char *dest, const char *src)
@@ -30,7 +30,7 @@ char *_strcat(char *dest, const char *src)
 
 /**
  * _strcpy - Entry point
- * @dest: pointer vaasdadsariable 1
+ * @dest: pointer variable 1
  * @src: pointer variable 2
  * Return: pointer to dest
  */

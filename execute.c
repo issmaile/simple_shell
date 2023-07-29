@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * execute - Entry poinasddt
+ * execute - Entry point
  * @command: command passed
  * @line_num: to track commands
  * Return: id of fork
@@ -47,7 +47,7 @@ int execute(char *command, int line_num)
 
 /**
  * run_child - Entry point
- * @args: command paasdssed
+ * @args: command passed
  * Return: id of fork
  */
 int run_child(char **args)
@@ -73,7 +73,7 @@ int run_child(char **args)
 }
 
 /**
- * run_parent - Entasdry point
+ * run_parent - Entry point
  *
  * Return: id of fork
  */
@@ -84,7 +84,7 @@ int run_parent(void)
 }
 
 /**
- * exit_stat - Entry poasdint
+ * exit_stat - Entry point
  *
  * Return: id of fork
  */

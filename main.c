@@ -2,7 +2,7 @@
 
 /**
  * main - Entry point
- * @argc: argumasdasdent count
+ * @argc: argument count
  * @argv: argument vector
  * Return: Always 0 (Success)
  */

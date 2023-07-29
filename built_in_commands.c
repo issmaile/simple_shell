@@ -1,36 +1,53 @@
 #include "main.h"
+/**
+ * my_env - Entry point
+ *
+ * Return: void
+ */
+int my_env(void)
+{
+	char **env = environ;
+
+	while (*env != NULL)
+	{
+		write(STDOUT_FILENO, *env, _strlen(*env));
+		write(STDOUT_FILENO, "\n", 1);
+		env++;
+	}
+
+	return (0);
+}
 
 
 /**
- * my_cd - point of entry
- * @args: args passed
+ * my_cd - Entry point
+ * @args: arguments passed
  * @line_num: command count
- *
  * Return: void
  */
 int my_cd(char **args, int line_num)
 {
-	char *dir_new, *dir_old, cwd[1024];
+	char *new_dir, *old_dir, cwd[1024];
 	char *cd_err = cd_error(args);
 
 	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
-		dir_new = _getenv("HOME");
+		new_dir = _getenv("HOME");
 	else if (_strcmp(args[1], "-") == 0)
-		dir_new = _getenv("OLDPWD");
+		new_dir = _getenv("OLDPWD");
 	else
-		dir_new = args[1];
-	if (dir_new == NULL)
+		new_dir = args[1];
+	if (new_dir == NULL)
 	{
 		perror("Directory not found");
 		return (1);
 	}
-	dir_old = _getenv("PWD");
-	if (my_setenv("OLDPWD", dir_old, 1) != 0)
+	old_dir = _getenv("PWD");
+	if (my_setenv("OLDPWD", old_dir, 1) != 0)
 	{
 		perror("Could not set OLDPWD environment variable");
 		return (1);
 	}
-	if (chdir(dir_new) != 0)
+	if (chdir(new_dir) != 0)
 	{
 		print_error(args[0], cd_err, line_num);
 		free(cd_err);
@@ -52,22 +69,55 @@ int my_cd(char **args, int line_num)
 	return (0);
 }
 
+
 /**
- * my_env - point of entry
- *
- * Return: void
+ * my_setenv - Entry point
+ * @name: name of environment variable
+ * @value: environment value
+ * @overwrite: replace variable
+ * Return: Always 0 (Success)
  */
-int my_env(void)
+int my_setenv(const char *name, const char *value, int overwrite)
 {
-	char **env = environ;
+	int i, j;
+	int len;
+	char *env;
 
-	while (*env != NULL)
+	if (name == NULL || value == NULL)
 	{
-		write(STDOUT_FILENO, *env, _strlen(*env));
-		write(STDOUT_FILENO, "\n", 1);
-		env++;
+		perror("Invalid arguments");
+		return (1);
 	}
+	len = _strlen(name) + _strlen(value) + 2;
+	env = malloc(len);
+	if (env == NULL)
+	{
+		perror("Memory allocation failed");
+		return (1);
+	}
+	for (i = 0; name[i] != '\0'; i++)
+	{
+		env[i] = name[i];
+	}
+	env[i] = '=';
 
+	for (j = 0; value[j] != '\0'; j++)
+	{
+		env[i + j + 1] = value[j];
+	}
+	env[i + j + 1] = '\0';
+	if (overwrite == 0 && _getenv(name) != NULL)
+	{
+		free(env);
+		return (0);
+	}
+	if (putenv(env) != 0)
+	{
+		perror("Setting environment variable failed");
+		free(env);
+		return (1);
+	}
+	free(env);
 	return (0);
 }
 
@@ -100,57 +150,6 @@ int my_unsetenv(char **args)
 		}
 	}
 
-	return (0);
-}
-/**
- * my_setenv - Entry point
- * @name: env var name
- * @value: environment value
- * @overwrite: replace variable
- *
- * Return: Always 0 (Success)
- */
-int my_setenv(const char *name, const char *value, int overwrite)
-{
-	int i, j;
-	int len;
-	char *enviro;
-
-	if (name == NULL || value == NULL)
-	{
-		perror("Invalid arguments");
-		return (1);
-	}
-	len = _strlen(name) + _strlen(value) + 2;
-	enviro = malloc(len);
-	if (enviro == NULL)
-	{
-		perror("Memory allocation failed");
-		return (1);
-	}
-	for (i = 0; name[i] != '\0'; i++)
-	{
-		enviro[i] = name[i];
-	}
-	enviro[i] = '=';
-
-	for (j = 0; value[j] != '\0'; j++)
-	{
-		enviro[i + j + 1] = value[j];
-	}
-	enviro[i + j + 1] = '\0';
-	if (overwrite == 0 && _getenv(name) != NULL)
-	{
-		free(enviro);
-		return (0);
-	}
-	if (putenv(enviro) != 0)
-	{
-		perror("Setting environment variable failed");
-		free(enviro);
-		return (1);
-	}
-	free(enviro);
 	return (0);
 }
 

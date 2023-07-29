@@ -2,7 +2,7 @@
 
 /**
  * print_error - Entry point
- * @cmd: first argumeasdasdnt
+ * @cmd: first argument
  * @msg: error message
  * @line_num: to track error
  * Return: Always 0 (Success)
@@ -48,7 +48,7 @@ void print_error(const char *cmd, const char *msg, int line_num)
 /**
  * cd_error - Entry point
  * @args: arguments
- * Return: Always asda0 (Success)
+ * Return: Always 0 (Success)
  */
 char *cd_error(char **args)
 {

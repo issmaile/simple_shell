@@ -1,7 +1,7 @@
 #include "main.h"
 /**
  * execute_with_path - is a function that exeuctes command from the path
- * @args: is an array of toasdasdkenized commands
+ * @args: is an array of tokenized commands
  * Return: The process id
  */
 int execute_with_path(char **args)
@@ -23,7 +23,7 @@ int execute_with_path(char **args)
 }
 
 /**
- * check_path - is a function thatasdad checks for a command in the path
+ * check_path - is a function that checks for a command in the path
  * @args: is a command
  * Return: pid
  */
@@ -46,7 +46,7 @@ int check_path(char **args)
 
 /**
  * link_path - is a function that creates a linked list for the path
- * Return: a pointer to theasdasd first node
+ * Return: a pointer to the first node
  */
 linked_path *link_path(void)
 {

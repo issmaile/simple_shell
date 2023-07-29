@@ -1,33 +1,28 @@
 #include "main.h"
-
 /**
- * check_alias - check alias functuion
- * @neww: arguments list
- *
- *
- * Return: success (name of alias) - error null
+ * check_alias - is a function that check if an alias exist
+ * @neww: is a list of arguments
+ * Return: Name of alias if success or NULL if not
  */
 char *check_alias(char *neww)
 {
-	alias *tmp = get_alias_list();
+	alias *temp = get_alias_list();
 
-	while (tmp != NULL)
+	while (temp != NULL)
 	{
-		if (_strcmp(neww, tmp->new_command) == 0)
-			return (tmp->new_command);
-
-		tmp = tmp->next;
+		if (_strcmp(neww, temp->new_command) == 0)
+		{
+			return (temp->new_command);
+		}
+		temp = temp->next;
 	}
 	return (NULL);
 }
-
 /**
- * execute_alias -check if alias exists
- * @args: args list
- * @main: value
- *
- *
- * Return: success: name of alias - error: null
+ * execute_alias - is a function that check if an alias exist
+ * @args: is a list of arguments
+ * @main: is the value
+ * Return: Name of alias if success or NULL if not
  */
 int execute_alias(char *main, char **args)
 {
@@ -38,25 +33,22 @@ int execute_alias(char *main, char **args)
 	}
 	return (0);
 }
-
 /**
- * create_keyvalue_pair - create alias
- * @name: arg to be initialized into name_command
- * @alias_list: pointer to alias list
- * @equals: pointer to '=' in the args
- *
- *
+ * create_keyvalue_pair - is a function that creates an alias
+ * @name: is the the argument to be initialized into the name_command
+ * @alias_list: is a pointer to the alias list
+ * @equals: is a pointer to the '=' in the args
  * Return: the new node
  */
 int create_keyvalue_pair(alias **alias_list, char *name, char *equals)
 {
 	alias *list_copy = *alias_list;
 	int i, b = 0, j,  value_length;
-	char *cmd_main, *cmd_new = malloc((strlen(name) + 1) * sizeof(char));
+	char *main_command, *new_command = malloc((strlen(name) + 1) * sizeof(char));
 
 	while (name[b] != '=')
 	{
-		cmd_new[b] = name[b];
+		new_command[b] = name[b];
 		b++;
 	}
 
@@ -65,90 +57,86 @@ int create_keyvalue_pair(alias **alias_list, char *name, char *equals)
 
 	printf("now allocating memory for value_command equals = %s\n", equals);
 	value_length = strlen(equals) - strspn(equals, "'\"");
-	cmd_main = malloc(sizeof(char) * (value_length + 1));
+	main_command = malloc(sizeof(char) * (value_length + 1));
 
 	printf("now entering initialization loop\n");
 	for (i = 0, j = 0; equals[i] != '\0'; i++)
 	{
 		if (equals[i] != '\'' && equals[i] != '"')
 		{
-			cmd_main[j] = equals[i];
+			main_command[j] = equals[i];
 			j++;
 		}
 	}
-	cmd_main[j] = '\0';
+	main_command[j] = '\0';
 
-	printf("before add name = %s and value = %s\n", cmd_new, cmd_main);
-	*alias_list = add_alias(&list_copy, cmd_new, cmd_main);
+	printf("before add name = %s and value = %s\n", new_command, main_command);
+	*alias_list = add_alias(&list_copy, new_command, main_command);
 
 	return (0);
 }
 /**
- * add_alias - add alias to the list
- * @new: name of new command
- * @main: name of main command
- * @head: pointer to list of aliases
- *
- *
- * Return: list head
+ * add_alias - is a function that adds an alias to the list
+ * @new: is the name of the new command
+ * @main: is the name fo the main command
+ * @head: is a pointer to a list of aliases
+ * Return: the head of the list
  */
 alias *add_alias(alias **head, char *new, char *main)
 {
-	alias *node_new = NULL;
-	alias *tmp;
+	alias *new_node = NULL;
+	alias *temp;
 
-	node_new->main_command = malloc(sizeof(char) * 50);
-	node_new->new_command = malloc(sizeof(char) * 50);
+	new_node->main_command = malloc(sizeof(char) * 50);
+	new_node->new_command = malloc(sizeof(char) * 50);
 
-	node_new->main_command = strdup(main);
-	node_new->new_command = strdup(new);
-	node_new->next = NULL;
+	new_node->main_command = strdup(main);
+	new_node->new_command = strdup(new);
+	new_node->next = NULL;
 
 	if (*head == NULL)
 	{
-		*head = node_new;
+		*head = new_node;
 	}
 	else
 	{
-		tmp = *head;
-		while (tmp->next != NULL)
+		temp = *head;
+		while (temp->next != NULL)
 		{
-			if (strcmp(new, tmp->new_command) == 0)
+			if (strcmp(new, temp->new_command) == 0)
 			{
-				free(tmp->main_command);
-				tmp->main_command = strdup(main);
-				free(node_new->main_command);
-				free(node_new->new_command);
+				free(temp->main_command);
+				temp->main_command = strdup(main);
+				free(new_node->main_command);
+				free(new_node->new_command);
 				return (*head);
 			}
-			tmp = tmp->next;
+			temp = temp->next;
 		}
-		tmp->next = node_new;
+		temp->next = new_node;
 	}
 	printf("added alias to list successfully\n");
 
-	while (tmp != NULL)
+	while (temp != NULL)
 	{
-		printf("alias is %s='%s'\n", tmp->new_command, tmp->main_command);
-		tmp = tmp->next;
+		printf("alias is %s='%s'\n", temp->new_command, temp->main_command);
+		temp = temp->next;
 	}
 	return (*head);
 }
 /**
- * print_alias_list - print alias list
- * @head: pointer to a list of aliases
- *
- *
- * Return: none
+ * print_alias_list - is a function that prints out the alias list
+ * @head: is a pointer to a list of aliases
+ * Return: void
  */
 int print_alias_list(alias *head)
 {
-	alias *tmp = head;
+	alias *temp = head;
 
-	while (tmp != NULL)
+	while (temp != NULL)
 	{
-		printf("alias %s=\'%s\'\n", tmp->new_command, tmp->main_command);
-		tmp = tmp->next;
+		printf("alias %s=\'%s\'\n", temp->new_command, temp->main_command);
+		temp = temp->next;
 	}
 	printf("print list successfully\n");
 

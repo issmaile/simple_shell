@@ -2,9 +2,8 @@
 
 /**
  * _itoa - Entry point
- * @value: integer to be asdconverted
- *
- * Return: string conveasdrted from integer
+ * @value: integer to be converted
+ * Return: string converted from integer
  */
 char *_itoa(int value)
 {
@@ -40,10 +39,9 @@ char *_itoa(int value)
 }
 
 /**
- * my_echo - Entry poasdint
- * @args: command andasd arguments
- *
- * Return: Alwayasds 0 (Sucasdcess)
+ * my_echo - Entry point
+ * @args: command and arguments
+ * Return: Always 0 (Success)
  */
 int my_echo(char **args)
 {
@@ -80,37 +78,8 @@ int my_echo(char **args)
 }
 
 /**
- * echo_env - Entry poasdracter count
- * @printed_chars: printed characters
- * @args: arguments
- * @i: iterate varasdiable
- *
- * Return: Always 0 (Suasdccess)
- */
-int echo_env(int printed_chars, char **args, int i)
-{
-	int len;
-	char *value;
-	char *var_name;
-
-	var_name = args[i] + 1;
-	value = _getenv(var_name);
-
-	if (value != NULL)
-	{
-		len = _strlen(value);
-		printed_chars += write(STDOUT_FILENO, value, len);
-		printed_chars += len;
-	}
-	else
-		return (0);
-	return (0);
-}
-
-/**
- * echo_ppid - Entry poiasdnt
+ * echo_ppid - Entry point
  * @printed_chars: character count
- *
  * Return: Always 0 (Success)
  */
 int echo_ppid(int printed_chars)
@@ -134,22 +103,48 @@ int echo_ppid(int printed_chars)
 
 /**
  * echo_exit - Entry point
- * @printed_chars: character coufdsant
- *
+ * @printed_chars: character count
  * Return: Always 0 (Success)
  */
 int echo_exit(int printed_chars)
 {
-	int status_exit = exit_stat();
-	char *status_exit_str = _itoa(status_exit);
 
-	if (status_exit_str != NULL)
+	int exit_status = exit_stat();
+	char *exit_status_str = _itoa(exit_status);
+
+	if (exit_status_str != NULL)
 	{
-		int len = _strlen(status_exit_str);
+		int len = _strlen(exit_status_str);
 
-		printed_chars += write(STDOUT_FILENO, status_exit_str, len);
-		free(status_exit_str);
+		printed_chars += write(STDOUT_FILENO, exit_status_str, len);
+		free(exit_status_str);
 	}
 	return (0);
 }
 
+/**
+ * echo_env - Entry point
+ * @printed_chars: character count
+ * @args: arguments
+ * @i: iterate variable
+ * Return: Always 0 (Success)
+ */
+int echo_env(int printed_chars, char **args, int i)
+{
+	int len;
+	char *value;
+	char *var_name;
+
+	var_name = args[i] + 1;
+	value = _getenv(var_name);
+
+	if (value != NULL)
+	{
+		len = _strlen(value);
+		printed_chars += write(STDOUT_FILENO, value, len);
+		printed_chars += len;
+	}
+	else
+		return (0);
+	return (0);
+}

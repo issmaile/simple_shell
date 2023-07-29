@@ -3,7 +3,7 @@
 #define _POSIX_C_SOURCE 200809L
 #define _XOPEN_SOURCE 700
 
-/* standard library funasdasctions */
+/* standard library functions */
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -25,7 +25,8 @@ extern int exit_status;
 
 
 /**
- * struct linked_path - This is a lasdasdry in the path
+ * struct linked_path - This is a linked list containing
+ * ---------------------Each diretory in the path
  * @dir: This is a directory Path
  * @next: is apointer to the next directory
  */
@@ -36,12 +37,12 @@ typedef struct linked_path
 } linked_path;
 
 /**
- * struct alias - This is a linked lasdadist containing
+ * struct alias - This is a linked list containing
  * ---------------------Each diretory in the path
  *
  * @main_command: is the main command
  * @new_command: is a new command
- * @next: is a pointer tasdao the next alias
+ * @next: is a pointer to the next alias
  */
 typedef struct alias
 {
@@ -65,16 +66,16 @@ char *check_alias(char *neww);
 int execute_alias(char *main, char **args);
 alias *get_alias_list(void);
 
-/** environ funcaasdasdtions */
+/** environ functions */
 int my_setenv(const char *name, const char *value, int overwrite);
 int my_env(void);
 int check_path(char **args);
-int my_unsetenv(char **args);
-linked_path *link_path(void);
 char *_getenv(const char *name);
 char *get_dir();
+int my_unsetenv(char **args);
+linked_path *link_path(void);
 
-/** execute funasdasdctions */
+/** execute functions */
 int execute(char *command, int line_num);
 int execute_with_path(char **args);
 ssize_t get_line(char **buffer, size_t *bufsize, int fd);
@@ -84,7 +85,7 @@ int run_child(char **args);
 int run_parent(void);
 int exit_stat(void);
 
-/** string / parsiasdasdng functions */
+/** string / parsing functions */
 char *str_tok(char *command, const char *delim);
 int tokenize(char *command, char **args);
 int built_ins(char **args, int line_num);
