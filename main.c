@@ -1,48 +1,43 @@
-#include "main.h"
+#include "header.h"
 
 /**
- * main - Entry point
- * @argc: argument count
- * @argv: argument vector
- * Return: Always 0 (Success)
+ * main - entry point
+ *@ac: arg count
+ *@av: arg vector
+ *Return: 0 on success, 1 on error
  */
-int main(int argc __attribute__((unused)), char **argv)
+int main(int ac, char **av)
 {
-	bool interactive = isatty(STDIN_FILENO);
-	char *shellPrompt = interactive ? "$ " : "";
-	size_t n = 0;
-	ssize_t line;
-	int line_num = 1;
-	char **cmd;
+	info_t info[] = { INFO_INIT };
+	int fd = 2;
 
-	signal(SIGINT, SIG_IGN);
+	asm ("mov %1, %0\n\t"
+		"add $3, %0"
+		: "=r" (fd)
+		: "r" (fd));
 
-	for (;;)
+	if (ac == 2)
 	{
-		if (interactive)
+		fd = open(av[1], O_RDONLY);
+		if (fd == -1)
 		{
-			write(STDOUT_FILENO, shellPrompt, 3);
-			fflush(stdout);
-		}
-		line = get_line(argv, &n, STDIN_FILENO);
-		if (line == -1)
-		{
-			if (feof(stdin))
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
 			{
-				exit(EXIT_SUCCESS);
+				_eputs(av[0]);
+				_eputs(": 0: Can't open ");
+				_eputs(av[1]);
+				_eputchar('\n');
+				_eputchar(BUF_FLUSH);
+				exit(127);
 			}
-			break;
+			return (EXIT_FAILURE);
 		}
-		if (line == 0 || *argv[0] == '\n')
-			continue;
-		cmd = argv;
-		while (*cmd != NULL)
-		{
-			execute(*cmd, line_num);
-			cmd++;
-		}
-		_freeargs(argv);
-		line_num++;
+		info->readfd = fd;
 	}
-	return (0);
+	expand_env_list(info);
+	read_history(info);
+	hsh(info, av);
+	return (EXIT_SUCCESS);
 }
