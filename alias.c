@@ -3,7 +3,7 @@
 /**
  * my_alias - handles the command if it is alias
  * @args: list of commands
- * 
+ *
  * Return: 0 (success alwaus)
  */
 int my_alias(char **args)
@@ -49,7 +49,7 @@ int my_alias(char **args)
 }
 /**
  * get_alias - returns the alias list
- * 
+ *
  * Return: alias list
  */
 alias *get_alias_list(void)

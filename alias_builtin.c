@@ -3,8 +3,8 @@
 /**
  * check_alias - check alias functuion
  * @neww: arguments list
- * 
- * 
+ *
+ *
  * Return: success (name of alias) - error null
  */
 char *check_alias(char *neww)
@@ -25,8 +25,8 @@ char *check_alias(char *neww)
  * execute_alias -check if alias exists
  * @args: args list
  * @main: value
- * 
- * 
+ *
+ *
  * Return: success: name of alias - error: null
  */
 int execute_alias(char *main, char **args)
@@ -44,8 +44,8 @@ int execute_alias(char *main, char **args)
  * @name: arg to be initialized into name_command
  * @alias_list: pointer to alias list
  * @equals: pointer to '=' in the args
- * 
- * 
+ *
+ *
  * Return: the new node
  */
 int create_keyvalue_pair(alias **alias_list, char *name, char *equals)
@@ -88,8 +88,8 @@ int create_keyvalue_pair(alias **alias_list, char *name, char *equals)
  * @new: name of new command
  * @main: name of main command
  * @head: pointer to list of aliases
- * 
- * 
+ *
+ *
  * Return: list head
  */
 alias *add_alias(alias **head, char *new, char *main)
@@ -137,8 +137,8 @@ alias *add_alias(alias **head, char *new, char *main)
 /**
  * print_alias_list - print alias list
  * @head: pointer to a list of aliases
- * 
- * 
+ *
+ *
  * Return: none
  */
 int print_alias_list(alias *head)

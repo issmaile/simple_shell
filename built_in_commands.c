@@ -5,7 +5,7 @@
  * my_cd - point of entry
  * @args: args passed
  * @line_num: command count
- * 
+ *
  * Return: void
  */
 int my_cd(char **args, int line_num)
@@ -107,7 +107,7 @@ int my_unsetenv(char **args)
  * @name: env var name
  * @value: environment value
  * @overwrite: replace variable
- * 
+ *
  * Return: Always 0 (Success)
  */
 int my_setenv(const char *name, const char *value, int overwrite)

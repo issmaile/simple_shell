@@ -3,6 +3,7 @@
 /**
  * _itoa - Entry point
  * @value: integer to be asdconverted
+ *
  * Return: string conveasdrted from integer
  */
 char *_itoa(int value)
@@ -41,6 +42,7 @@ char *_itoa(int value)
 /**
  * my_echo - Entry poasdint
  * @args: command andasd arguments
+ *
  * Return: Alwayasds 0 (Sucasdcess)
  */
 int my_echo(char **args)
@@ -79,8 +81,10 @@ int my_echo(char **args)
 
 /**
  * echo_env - Entry poasdracter count
+ * @printed_chars: printed characters
  * @args: arguments
  * @i: iterate varasdiable
+ *
  * Return: Always 0 (Suasdccess)
  */
 int echo_env(int printed_chars, char **args, int i)
@@ -106,6 +110,7 @@ int echo_env(int printed_chars, char **args, int i)
 /**
  * echo_ppid - Entry poiasdnt
  * @printed_chars: character count
+ *
  * Return: Always 0 (Success)
  */
 int echo_ppid(int printed_chars)
@@ -130,6 +135,7 @@ int echo_ppid(int printed_chars)
 /**
  * echo_exit - Entry point
  * @printed_chars: character coufdsant
+ *
  * Return: Always 0 (Success)
  */
 int echo_exit(int printed_chars)
@@ -146,3 +152,4 @@ int echo_exit(int printed_chars)
 	}
 	return (0);
 }
+
