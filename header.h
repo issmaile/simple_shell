@@ -1,32 +1,23 @@
-#ifndef _SIMPLE_H_
-#define _SIMPLE_H_
+#ifndef _HEADER_
+#define _HEADER_
 
 /* included standard library headers */
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
 #include <limits.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <errno.h>
-
-/* read/write buffers */
-#define READ_BUF_SIZE 1024
-#define WRITE_BUF_SIZE 1024
-#define BUF_FLUSH -1
+#include <sys/wait.h>
+#include <sys/stat.h>
 
 /* command chaining */
 #define CMD_NORM	0
 #define CMD_OR		1
 #define CMD_AND		2
 #define CMD_CHAIN	3
-
-/* convert_number() */
-#define CONVERT_LOWERCASE	1
-#define CONVERT_UNSIGNED	2
 
 /* 1 if using system getline() */
 #define USE_GETLINE 0
@@ -35,8 +26,16 @@
 #define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
 
-extern char **environ;
+/* read/write buffers */
+#define WRITE_BUF_SIZE 1024
+#define BUF_FLUSH -1
+#define READ_BUF_SIZE 1024
 
+/* convert_number() */
+#define CONVERT_LOWERCASE	1
+#define CONVERT_UNSIGNED	2
+
+extern char **environ;
 
 /**
  * struct liststr - linked list
@@ -102,8 +101,8 @@ typedef struct passinfo
 
 /**
  *struct builtin - builtin string and related function
- *@type: the builtin command flag
- *@func: the function
+ *@type: builtint cmd flag
+ *@func: function
  */
 typedef struct builtin
 {
@@ -117,6 +116,12 @@ int sfree(void **);
 /* ---loophsh.c--- */
 int loophsh(char **);
 
+/* ---string1.c--- */
+char *_strcpy(char *, char *);
+char *_strdup(const char *);
+void _puts(char *);
+int _putchar(char);
+
 /* ---shloop.c--- */
 int hsh(info_t *, char **);
 int find_builtin(info_t *);
@@ -129,40 +134,10 @@ int _strcmp(char *, char *);
 char *starts_with(const char *, const char *);
 char *_strcat(char *, char *);
 
-/* ---string1.c--- */
-char *_strcpy(char *, char *);
-char *_strdup(const char *);
-void _puts(char *);
-int _putchar(char);
-
-/* ---builtin.c--- */
-int _mexit(info_t *);
-int _mcd(info_t *);
-int _mhelp(info_t *);
-
-/* ---builtin1.c--- */
-int _mhistory(info_t *);
-int _malias(info_t *);
-
-/* ---errors.c--- */
-void _eputs(char *);
-int _eputchar(char);
-int _putfd(char c, int fd);
-int _putsfd(char *str, int fd);
-
-/* ---errors1.c--- */
-int _erratoi(char *);
-void print_error(info_t *, char *);
-int print_d(int, int);
-char *convert_number(long int, int, int);
-void remove_comments(char *);
-
-/* ---lists.c--- */
-list_t *add_node(list_t **, const char *, int);
-list_t *add_node_end(list_t **, const char *, int);
-size_t print_list_str(const list_t *);
-int delete_node_at_index(list_t **, unsigned int);
-void free_list(list_t **);
+/* ---parser.c--- */
+int is_cmd(info_t *, char *);
+char *dup_chars(char *, int, int);
+char *find_path(info_t *, char *, char *);
 
 /* ---lists1.c--- */
 size_t list_len(const list_t *);
@@ -171,31 +146,54 @@ size_t print_list(const list_t *);
 list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 
+/* ---builtin1.c--- */
+int _mhistory(info_t *);
+int _malias(info_t *);
+
+/* ---errors1.c--- */
+int _erratoi(char *);
+void print_error(info_t *, char *);
+int print_d(int, int);
+char *convert_number(long int, int, int);
+void remove_comments(char *);
+
+/* ---getenv.c--- */
+char **get_environ(info_t *);
+int _unsetenv(info_t *, char *);
+int _setenv(info_t *, char *, char *);
+
+/* ---builtin.c--- */
+int _mexit(info_t *);
+int _mcd(info_t *);
+int _mhelp(info_t *);
+
 /* ---atoi.c--- */
 int interactive(info_t *);
 int is_delim(char, char *);
 int _isalpha(int);
 int _atoi(char *);
 
-/* ---parser.c--- */
-int is_cmd(info_t *, char *);
-char *dup_chars(char *, int, int);
-char *find_path(info_t *, char *, char *);
+/* ---errors.c--- */
+void _eputs(char *);
+int _eputchar(char);
+int _putfd(char c, int fd);
+int _putsfd(char *str, int fd);
+
+/* ---lists.c--- */
+list_t *add_node(list_t **, const char *, int);
+list_t *add_node_end(list_t **, const char *, int);
+size_t print_list_str(const list_t *);
+int delete_node_at_index(list_t **, unsigned int);
+void free_list(list_t **);
 
 /* ---getline.c--- */
 ssize_t get_input(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(int);
 
-/* ---getinfo.c--- */
-void clear_info(info_t *);
-void set_info(info_t *, char **);
-void free_info(info_t *, int);
-
-/* ---getenv.c--- */
-char **get_environ(info_t *);
-int _unsetenv(info_t *, char *);
-int _setenv(info_t *, char *, char *);
+/* ---tokenizer.c--- */
+char **strtow(char *, char *);
+char **strtow2(char *, char);
 
 /* ---environ.c--- */
 char *_getenv(info_t *, const char *);
@@ -216,15 +214,6 @@ char *_strncpy(char *, char *, int);
 char *_strncat(char *, char *, int);
 char *_strchr(char *, char);
 
-/* ---realloc.c--- */
-char *_memset(char *, char, unsigned int);
-void tfree(char **);
-void *_realloc(void *, unsigned int, unsigned int);
-
-/* ---tokenizer.c--- */
-char **strtow(char *, char *);
-char **strtow2(char *, char);
-
 /* ---vars.c--- */
 int is_chain(info_t *, char *, size_t *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
@@ -232,4 +221,14 @@ int replace_alias(info_t *);
 int replace_vars(info_t *);
 int replace_string(char **, char *);
 
-#endif
+/* ---getinfo.c--- */
+void clear_info(info_t *);
+void set_info(info_t *, char **);
+void free_info(info_t *, int);
+
+/* ---realloc.c--- */
+char *_memset(char *, char, unsigned int);
+void tfree(char **);
+void *_realloc(void *, unsigned int, unsigned int);
+
+#endif /* _HEADER_ */

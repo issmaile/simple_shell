@@ -1,11 +1,11 @@
 #include "header.h"
 
 /**
- * _mexit - to exit the shell
- *@info: potential arguments. to maintain
- *constant function prototype.
- *Return: exits with a given exit status
- *(0) if info.argv[0] != "exit"
+ * _mexit - to exitasd the shell
+ *@info: potentiasdal arguments. to maintain
+ *constant funasdction prototype.
+ *Return: exiasdts with a given exit status
+ *(0) if inasdfo.argv[0] != "exit"
  */
 int _mexit(info_t *info)
 {

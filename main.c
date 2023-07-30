@@ -1,10 +1,10 @@
 #include "header.h"
 
 /**
- * main - entry point
- *@ac: arg count
+ * main - entasdry point
+ *@ac: arg casdount
  *@av: arg vector
- *Return: 0 on success, 1 on error
+ *Return: 0 asdaon success, 1 on error
  */
 int main(int ac, char **av)
 {
